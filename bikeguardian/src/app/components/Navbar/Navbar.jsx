@@ -29,7 +29,7 @@ function Navbar() {
       <nav className='navbar'>
         <div className='navbar-container'>
           <Link href='/' className='navbar-logo' onClick={closeMobileMenu}>
-            <img src='/images/logo-porto.png' />
+            <img src='/img/logo-porto.png' />
           </Link>
           
           <div className='menu-icon' onClick={handleClick}>
