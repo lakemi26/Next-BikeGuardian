@@ -42,7 +42,6 @@ export default function Home() {
         imageSrc='/img/InformacoesTexto.png'
         altText='Banner informações'
       />
-
       <Footer/>
 
     </>
