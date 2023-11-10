@@ -1,6 +1,6 @@
 'use client';
 import { useState } from "react";
-
+import FormInput from "../Form/FormInput";
 import Link from "next/link";
 import "./BodyLogin.css";
 
@@ -58,10 +58,10 @@ const Login = () => {
           <p>
             Não tem uma conta? Crie{" "}
             <Link 
-            to="/solicite">aqui!</Link>
+            href='/Solicite'>aqui!</Link>
           </p>
           <button>
-            <a href="/PagClie">Entrar</a>
+            <a href='/PagClie'>Entrar</a>
           </button>
         </form>
       </div>

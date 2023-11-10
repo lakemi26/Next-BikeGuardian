@@ -1,0 +1,99 @@
+input {
+    padding: 15px;
+    margin: 10px 0px;
+    border-radius: 30px;
+    border: 1px solid gray;
+    color: #0075E0;
+}
+
+.form-container{
+    margin-top: 30px;
+}
+
+.form-container input{
+    border-radius: 15px;
+}
+
+.form-container form{
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+    padding: 25px;
+}
+
+.form-container h1{
+    text-align: center;
+    color:#0075E0;
+}
+
+.form-container label{
+    font-size: 15px;
+    color: #0075E0;
+}
+
+.campo{
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox{
+    color:#0075E0;
+    font-size: 20px;
+}
+
+.checkbox label{
+    gap:15px;
+    margin-left: 15px;
+}
+
+.campo label{
+    font-size: 20px;
+}
+
+.form-container label{
+    font-size: 20px;
+}
+
+.form-container ::placeholder{
+    font-size: 15px;
+}
+
+.form-container button{
+    width: 200px;
+    height: 60px;
+    align-self: self-end;
+    font-size: 20px;
+    border: 2px solid #0075E0;
+    color: #0075E0;
+    background-color: white;
+}
+
+.form-container button a{
+    text-decoration: none;
+    color:#0075E0;
+}
+
+.checkbox select{
+    color:#0075E0;
+}
+
+.botoes{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.botoes button{
+    margin:10px;
+}
+
+.campo select{
+    width: 280px;
+    height: 40px;
+    font-size: 20px;
+}
+
+label .campo{
+    font-size: 20px;
+}
