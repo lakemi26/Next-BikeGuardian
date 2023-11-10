@@ -1,0 +1,21 @@
+.desenvolvedores {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .desenvolvedores p {
+    margin: 8px 0;
+  }
+  
+  .desenvolvedores a {
+    text-decoration: none;
+    color: #0066cc;
+  }
+  
+  .desenvolvedores a:hover {
+    text-decoration: underline;
+  }
