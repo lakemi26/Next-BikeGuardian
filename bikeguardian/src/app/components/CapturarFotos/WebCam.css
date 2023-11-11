@@ -1,44 +1,62 @@
-.container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-  }
-  
-  .previewContainer {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .video,
-  .previewImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .button {
-    align-self: center;
-    margin-top: 10px;
-  }
-  
-  .overlay {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-  }
-  
-  .overlay img {
-    max-width: 100%;
-    border-radius: 5px;
-  }
-  
-  .previewImage {
-    cursor: pointer;
-  }
-  
+.container{
+}
+
+.previewContainer {
+  position: relative;
+  display:flex;
+  flex-direction: column;
+  height: 200px;
+  width: 200px;
+}
+
+.cameraContainer {
+  width: 180px; /* Defina a largura desejada */
+  height: 180px; /* Defina a altura desejada */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.video,
+.capturedImage {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+}
+
+.placeholderImage {
+  width: 180px;
+  height: 180px;
+  /* Adicione outros estilos necessários para o placeholder */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay img {
+  max-width: 180px;
+  max-height: 180px;
+  border-radius: 5px;
+}
+
+.button {
+  margin-top: 10px;
+}
+
+img{
+  width: 180px;
+  height: 180px;
+}
+
+video{
+  width: 180px;
+  height: 180px;
+}

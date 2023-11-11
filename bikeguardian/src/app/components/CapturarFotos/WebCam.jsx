@@ -1,149 +1,106 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
-import styles from "./WebCam.css";
+import styles from './WebCam.css';
 
-const WebcamCapture = () => {
-    const videoRef = useRef();
-    const canvasRef = useRef();
-    const [capturedImage, setCapturedImage] = useState(null);
-    const [cameraActive, setCameraActive] = useState(false);
-  
-    useEffect(() => {
-      if (cameraActive) {
-        const initializeWebcam = async () => {
-          try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            videoRef.current.srcObject = stream;
-            videoRef.current.play();
-          } catch (error) {
-            console.error('Error accessing webcam:', error);
-          }
-        };
-  
-        initializeWebcam();
-      }
-    }, [cameraActive]);
+const WebcamCapture = ({ placeholderImage }) => {
+  const videoRef = useRef();
+  const canvasRef = useRef();
+  const [capturedImage, setCapturedImage] = useState(null);
+  const [cameraActive, setCameraActive] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
-    //enviar imagens para spring boot
-    const capturePhoto = async () => {
-        setCameraActive(false);
-      
-        const canvas = canvasRef.current;
-        canvas.height = videoRef.current.videoHeight;
-        canvas.width = videoRef.current.videoWidth;
-        const context = canvas.getContext('2d');
-        context.drawImage(videoRef.current, 0, 0);
-      
-        const imageDataURL = canvas.toDataURL();
-      
-        // Enviar para o servidor
+  useEffect(() => {
+    if (cameraActive) {
+      const initializeWebcam = async () => {
         try {
-          const response = await fetch('http://seu-servidor/upload', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ image: imageDataURL }),
-          });
-      
-          // Lógica adicional após enviar para o servidor, se necessário
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          videoRef.current.srcObject = stream;
+          videoRef.current.play();
         } catch (error) {
-          console.error('Erro ao enviar imagem para o servidor:', error);
+          console.error('Error accessing webcam:', error);
         }
-      
-        setCapturedImage(imageDataURL);
       };
-  
-    const retakePhoto = () => {
-      setCameraActive(true);
-      setCapturedImage(null);
-    };
 
+      initializeWebcam();
+    }
+  }, [cameraActive]);
 
-  
-    return (
-        <div className={styles.container}>
-            <div className={styles.previewContainer}>
-            {cameraActive && (
-                <video ref={videoRef} autoPlay className={styles.video}></video>
-            )}
-    
-            {!cameraActive && capturedImage && (
-                <div className={styles.overlay}>
-                <img src={capturedImage} alt="Captured" className={styles.capturedImage} />
-                </div>
-            )}
-    
-            {!cameraActive && !capturedImage && (
-                <img
-                src="../../../../img/frente-bike.png"  // Adicione o caminho correto da imagem de placeholder
-                alt="Placeholder"
-                className={styles.placeholderImage}
-                />
-            )}
-            </div>
-    
-            <button onClick={cameraActive ? capturePhoto : retakePhoto} className={styles.button}>
-            {cameraActive ? 'Tirar foto' : 'Tirar outra'}
-            </button>
-    
-            {/* Utilize este canvas para capturar a imagem, mas mantenha-o oculto */}
-            <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
+  const capturePhoto = async () => {
+    setCameraActive(false);
 
-            <div className={styles.previewContainer}>
-            {cameraActive && (
-                <video ref={videoRef} autoPlay className={styles.video}></video>
-            )}
-    
-            {!cameraActive && capturedImage && (
-                <div className={styles.overlay}>
-                <img src={capturedImage} alt="Captured" className={styles.capturedImage} />
-                </div>
-            )}
-    
-            {!cameraActive && !capturedImage && (
-                <img
-                src="../../../../img/lateral-bike1.png"  // Adicione o caminho correto da imagem de placeholder
-                alt="Placeholder"
-                className={styles.placeholderImage}
-                />
-            )}
-            </div>
-    
-            <button onClick={cameraActive ? capturePhoto : retakePhoto} className={styles.button}>
-            {cameraActive ? 'Tirar foto' : 'Tirar outra'}
-            </button>
-    
-            {/* Utilize este canvas para capturar a imagem, mas mantenha-o oculto */}
-            <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
+    const canvas = canvasRef.current;
+    canvas.height = videoRef.current.videoHeight;
+    canvas.width = videoRef.current.videoWidth;
+    const context = canvas.getContext('2d');
+    context.drawImage(videoRef.current, 0, 0);
 
-            <div className={styles.previewContainer}>
-            {cameraActive && (
-                <video ref={videoRef} autoPlay className={styles.video}></video>
-            )}
-    
-            {!cameraActive && capturedImage && (
-                <div className={styles.overlay}>
-                <img src={capturedImage} alt="Captured" className={styles.capturedImage} />
-                </div>
-            )}
-    
-            {!cameraActive && !capturedImage && (
-                <img
-                src="../../../../img/tras-bike.png"  // Adicione o caminho correto da imagem de placeholder
-                alt="Placeholder"
-                className={styles.placeholderImage}
-                />
-            )}
-            </div>
-    
-            <button onClick={cameraActive ? capturePhoto : retakePhoto} className={styles.button}>
-            {cameraActive ? 'Tirar foto' : 'Tirar outra'}
-            </button>
-    
-            {/* Utilize este canvas para capturar a imagem, mas mantenha-o oculto */}
-            <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
-        </div>
-    );
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg'));
+    setCapturedImage(blob);
   };
-  export default WebcamCapture;
+
+  const retakePhoto = () => {
+    setCameraActive(true);
+    setCapturedImage(null);
+  };
+
+  const uploadPhoto = async () => {
+    setIsUploading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', capturedImage);
+
+      const response = await fetch('http://seu-servidor/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      // Lógica?
+
+      console.log('Foto enviada com sucesso!');
+    } catch (error) {
+      console.error('Erro ao enviar imagem para o servidor:', error);
+    }
+
+    setIsUploading(false);
+  };
+
+  return (
+    <div className={styles.previewContainer}>
+      <div className={styles.cameraContainer}>
+        {cameraActive && <video ref={videoRef} autoPlay className={styles.video}></video>}
+        {!cameraActive && capturedImage && (
+          <div className={styles.overlay}>
+            <img src={URL.createObjectURL(capturedImage)} alt="Captured" className={styles.capturedImage} />
+          </div>
+        )}
+      </div>
+
+      {!cameraActive && !capturedImage && (
+        <img
+          src={placeholderImage}
+          alt="Placeholder"
+          className={styles.placeholderImage}
+        />
+      )}
+
+      <button onClick={cameraActive ? capturePhoto : retakePhoto} className={styles.button}>
+        {cameraActive ? 'Tirar foto' : 'Tirar outra'}
+      </button>
+
+      {!cameraActive && capturedImage && (
+        <button
+          onClick={uploadPhoto}
+          className={`${styles.button} ${styles.uploadButton}`}
+          disabled={isUploading}
+        >
+          {isUploading ? 'Enviando...' : 'Enviar para o Banco de Dados'}
+        </button>
+      )}
+
+      <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
+    </div>
+  );
+};
+
+export default WebcamCapture;
