@@ -1,6 +1,7 @@
 'use client';
 import './Formularios.css'
 import { useState } from "react";
+import axios from 'axios';
 
 const Formulario = () => {
     const [formData, setFormData] = useState({
@@ -35,12 +36,17 @@ const Formulario = () => {
       });
     };
   
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      // Lógica para processar os dados do formulário
-      console.log(formData);
-      // Navegação para a próxima página (se houver)
-    };
+  
+      try {
+          const response = await axios.post('http://seu-backend/api/formulario/enviar-dados', formData);
+          console.log(response.data);
+      } catch (error) {
+          console.error('Erro ao enviar os dados:', error);
+      }
+  
+  };
   
     return (
       <div className="form-container">

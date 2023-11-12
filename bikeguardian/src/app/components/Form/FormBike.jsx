@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import '../Formularios/Formularios.css';
+import axios from 'axios';
 
 
 const FormulariosBike = () => {
@@ -28,12 +29,17 @@ const FormulariosBike = () => {
         });
       };
     
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
-        // Lógica para processar os dados do formulário
-        console.log(formData);
-        // Navegação para a próxima página (se houver)
-      };
+    
+        try {
+            const response = await axios.post('http://seu-backend/api/formulario/enviar-dados', formData);
+            console.log(response.data);
+        } catch (error) {
+            console.error('Erro ao enviar os dados:', error);
+        }
+    
+    };
 
       const handleAcessorioChange = (event) => {
         const { value } = event.target;
