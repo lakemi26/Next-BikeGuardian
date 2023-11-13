@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import '../Formularios/Formularios.css';
-import axios from 'axios';
 
 
 const FormulariosBike = () => {
@@ -31,15 +30,38 @@ const FormulariosBike = () => {
     
       const handleSubmit = async (e) => {
         e.preventDefault();
-    
+      
         try {
-            const response = await axios.post('http://seu-backend/api/formulario/enviar-dados', formData);
-            console.log(response.data);
+          const response = await fetch('http://localhost:8080/bicicletas', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              bike: {
+                modelo: formData.modelo,
+                marca: formData.marca,
+                cor: formData.cor,
+                numeroserie: formData.numeroserie,
+                datacompra: formData.datacompra,
+                localcompra: formData.localcompra,
+                valorcompra: formData.valorcompra,
+                revisao: formData.revisao,
+                acessorio: formData.acessorio,
+                plano: formData.plano,
+              }
+            }),
+          });
+      
+          if (response.ok) {
+            console.log('Cadastro de bike criado com sucesso!');
+          } else {
+            console.error('Falha ao criar o cadastro de bike');
+          }
         } catch (error) {
-            console.error('Erro ao enviar os dados:', error);
+          console.error('Erro:', error);
         }
-    
-    };
+      };
 
       const handleAcessorioChange = (event) => {
         const { value } = event.target;

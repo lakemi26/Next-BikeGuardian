@@ -40,13 +40,46 @@ const Formulario = () => {
       e.preventDefault();
   
       try {
-          const response = await axios.post('http://seu-backend/api/formulario/enviar-dados', formData);
-          console.log(response.data);
-      } catch (error) {
-          console.error('Erro ao enviar os dados:', error);
-      }
+        const response = await fetch('http://localhost:8080/clientes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            cliente: {
+              nome: formData.nome,
+              nascimento: formData.nascimento,
+              cpf: formData.cpf,
+              rg: formData.rg,
+              nacionalidade: formData.nacionalidade,
+              emissaoRg: formData.emissaoRg,
+              uf: formData.uf,
+              orgaoEmissorRg: formData.orgaoEmissorRg,
+              email: formData.email,
+              telefone: formData.telefone,
+              genero: formData.genero,
+              estadoCivil: formData.estadoCivil,
+              escolaridade: formData.escolaridade,
+              endereco: formData.endereco,
+              numero: formData.numero,
+              complemento: formData.complemento,
+              cep: formData.cep,
+              cidade: formData.cidade
+            }
+          })
+        });
   
-  };
+        if (response.ok) {
+          console.log('Cadastro criado com sucesso!');
+          
+        } else {
+          console.error('Falha ao criar o cadastro');
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+      }
+    };
+  
   
     return (
       <div className="form-container">
