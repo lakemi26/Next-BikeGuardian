@@ -50,7 +50,7 @@ const WebcamCapture = ({ placeholderImage }) => {
       const formData = new FormData();
       formData.append('file', capturedImage);
 
-      const response = await fetch('http://seu-servidor/upload', {
+      const response = await fetch('http:http://localhost:8080/bicicletas', {
         method: 'POST',
         body: formData,
       });

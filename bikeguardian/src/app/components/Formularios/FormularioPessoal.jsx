@@ -1,7 +1,6 @@
 'use client';
 import './Formularios.css'
 import { useState } from "react";
-import axios from 'axios';
 
 const Formulario = () => {
     const [formData, setFormData] = useState({
@@ -47,24 +46,25 @@ const Formulario = () => {
           },
           body: JSON.stringify({
             cliente: {
-              nome: formData.nome,
+              nomeCliente: formData.nome,
               nascimento: formData.nascimento,
-              cpf: formData.cpf,
+              cpfCliente: formData.cpf,
               rg: formData.rg,
               nacionalidade: formData.nacionalidade,
               emissaoRg: formData.emissaoRg,
               uf: formData.uf,
               orgaoEmissorRg: formData.orgaoEmissorRg,
-              email: formData.email,
-              telefone: formData.telefone,
+              emailCliente: formData.email,
+              senhaCliente: formData.senha,
+              telCliente: formData.telefone,
               genero: formData.genero,
               estadoCivil: formData.estadoCivil,
               escolaridade: formData.escolaridade,
-              endereco: formData.endereco,
+              enderecoCliente: formData.endereco,
               numero: formData.numero,
               complemento: formData.complemento,
               cep: formData.cep,
-              cidade: formData.cidade
+              cidade: formData.cidade              
             }
           })
         });
@@ -199,6 +199,21 @@ const Formulario = () => {
               required
           />
           </label>
+
+          <label className='campo'>
+          Senha:
+          <input
+            type="password"
+            name="senha"
+            value={formData.senha}
+            onChange={handleChange}
+            placeholder="Senha"
+            errorMessage="Verifique sua senha!"
+            label="Senha"
+            pattern="^[A-Za-z0-9]{6,}$"
+            required
+          />
+        </label>
   
           <label className='campo'>
           Telefone:

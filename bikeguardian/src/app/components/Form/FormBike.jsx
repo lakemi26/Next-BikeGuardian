@@ -32,7 +32,8 @@ const FormulariosBike = () => {
         e.preventDefault();
       
         try {
-          const response = await fetch('http://localhost:8080/bicicletas', {
+          // Endpoint para enviar o modelo
+          await fetch('http://localhost:8080/modelos', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -40,24 +41,76 @@ const FormulariosBike = () => {
             body: JSON.stringify({
               bike: {
                 modelo: formData.modelo,
-                marca: formData.marca,
-                cor: formData.cor,
-                numeroserie: formData.numeroserie,
-                datacompra: formData.datacompra,
-                localcompra: formData.localcompra,
-                valorcompra: formData.valorcompra,
-                revisao: formData.revisao,
-                acessorio: formData.acessorio,
-                plano: formData.plano,
-              }
+              },
             }),
           });
       
-          if (response.ok) {
-            console.log('Cadastro de bike criado com sucesso!');
-          } else {
-            console.error('Falha ao criar o cadastro de bike');
-          }
+          // Endpoint para enviar a marca
+          await fetch('http://localhost:8080/marcas', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              bike: {
+                nomeMarca: formData.marca,
+              },
+            }),
+          });
+      
+          // Endpoint para enviar a cor
+          await fetch('http://localhost:8080/cores', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              bike: {
+                cor: formData.cor,
+              },
+            }),
+          });
+      
+          // Endpoint para enviar o número de série
+          await fetch('http://localhost:8080/numserie', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              bike: {
+                numeroserie: formData.numeroserie,
+              },
+            }),
+          });
+      
+          // Endpoint para enviar o acessório
+          await fetch('http://localhost:8080/acessorio', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              bike: {
+                acessorio: formData.acessorio,
+              },
+            }),
+          });
+      
+          // Endpoint para enviar o plano
+          await fetch('http://localhost:8080/plano', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              bike: {
+                plano: formData.plano,
+              },
+            }),
+          });
+      
+          console.log('Informações enviadas com sucesso!');
         } catch (error) {
           console.error('Erro:', error);
         }
