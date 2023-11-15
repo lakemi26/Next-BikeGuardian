@@ -60,7 +60,7 @@ const Formulario = () => {
               genero: formData.genero,
               estadoCivil: formData.estadoCivil,
               escolaridade: formData.escolaridade,
-              enderecoCliente: formData.endereco,
+              logradouro: formData.endereco,
               numero: formData.numero,
               complemento: formData.complemento,
               cep: formData.cep,

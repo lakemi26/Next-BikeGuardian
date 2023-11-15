@@ -40,7 +40,7 @@ const FormulariosBike = () => {
             },
             body: JSON.stringify({
               bike: {
-                modelo: formData.modelo,
+                nome: formData.modelo,
               },
             }),
           });
@@ -66,46 +66,46 @@ const FormulariosBike = () => {
             },
             body: JSON.stringify({
               bike: {
-                cor: formData.cor,
+                nome: formData.cor,
               },
             }),
           });
       
           // Endpoint para enviar o número de série
-          await fetch('http://localhost:8080/numserie', {
+          await fetch('http://localhost:8080/bicicletas', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
               bike: {
-                numeroserie: formData.numeroserie,
+                numSerie: formData.numeroserie,
               },
             }),
           });
-      
-          // Endpoint para enviar o acessório
-          await fetch('http://localhost:8080/acessorio', {
+
+          // Endpoint para enviar o valor de compra
+          await fetch('http://localhost:8080/bicicletas', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
               bike: {
-                acessorio: formData.acessorio,
+                valorNF: formData.valorcompra,
               },
             }),
           });
       
           // Endpoint para enviar o plano
-          await fetch('http://localhost:8080/plano', {
+          await fetch('http://localhost:8080/seguros', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
               bike: {
-                plano: formData.plano,
+                nomeSeguro: formData.plano,
               },
             }),
           });
